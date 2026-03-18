@@ -14,6 +14,8 @@ RUN apt-get update -qq && \
         ffmpeg \
         libgl1 \
         libglib2.0-0 \
+        build-essential \
+        ninja-build \
     && rm -rf /var/lib/apt/lists/*
 
 # ── ComfyUI ──────────────────────────────────────────────────────
@@ -29,6 +31,8 @@ RUN python3 -m venv .venv && \
 RUN .venv/bin/pip install \
     "huggingface_hub[cli]" \
     hf_transfer \
+    packaging \
+    ninja \
     --quiet
 
 # ── Custom Nodes ─────────────────────────────────────────────────
@@ -46,12 +50,8 @@ RUN for dir in /workspace/ComfyUI/custom_nodes/*/; do \
         fi \
     done
 
-# ── SageAttention (built from source to match installed PyTorch) ─
-RUN .venv/bin/pip install packaging ninja --quiet && \
-    git clone https://github.com/thu-ml/SageAttention.git /tmp/SageAttention && \
-    cd /tmp/SageAttention && \
-    /workspace/ComfyUI/.venv/bin/pip install . --no-build-isolation --quiet && \
-    rm -rf /tmp/SageAttention
+# ── SageAttention ────────────────────────────────────────────────
+RUN .venv/bin/pip install sageattention==2.2.0
 
 # ── Ports ────────────────────────────────────────────────────────
 EXPOSE 8188
