@@ -78,6 +78,17 @@ print("")
 print("✓ All models ready")
 EOF
 
+# ── Launch Jupyter Lab ───────────────────────────────────────────
+echo "  → Starting Jupyter Lab on port 8888..."
+jupyter lab \
+    --ip=0.0.0.0 \
+    --port=8888 \
+    --no-browser \
+    --allow-root \
+    --NotebookApp.token='' \
+    --NotebookApp.password='' \
+    > /workspace/jupyter.log 2>&1 &
+
 # ── Launch ComfyUI ───────────────────────────────────────────────
 echo ""
 echo "  → Launching ComfyUI on port 8188..."
