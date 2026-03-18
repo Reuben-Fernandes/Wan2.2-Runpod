@@ -1,14 +1,13 @@
 #!/bin/bash
 #
-# Pod start script — runs on every launch
-# Models downloaded via hf_transfer, everything else already baked in
+# Pod start script
+# Downloads models from HF mirror on first run, then starts ComfyUI + Jupyter
 #
 
 set -e
 
 COMFYUI_DIR=/workspace/ComfyUI
 VENV_PYTHON="$COMFYUI_DIR/.venv/bin/python"
-VENV_PIP="$COMFYUI_DIR/.venv/bin/pip"
 MIRROR="ReubenF10/ComfyUI-Models"
 
 echo ""
@@ -18,25 +17,15 @@ echo "########################################"
 echo ""
 
 if [[ -z "$HF_TOKEN" ]]; then
-    echo "ERROR: HF_TOKEN not set. Set it as a RunPod environment variable."
+    echo "ERROR: HF_TOKEN not set. Add it as a RunPod environment variable."
     exit 1
 fi
 
 export HF_TOKEN
 export HF_HUB_ENABLE_HF_TRANSFER=1
 
-# ── Update ComfyUI and nodes ─────────────────────────────────────
-echo "  → Updating ComfyUI..."
-(cd "$COMFYUI_DIR" && git pull --quiet)
-
-echo "  → Updating custom nodes..."
-for dir in "$COMFYUI_DIR/custom_nodes/"/*/; do
-    (cd "$dir" && git pull --quiet) 2>/dev/null || true
-done
-
 # ── Download Models ──────────────────────────────────────────────
-echo ""
-echo "  → Downloading models via hf_transfer..."
+echo "  → Checking models..."
 
 $VENV_PYTHON << EOF
 import os, shutil
@@ -63,12 +52,12 @@ for filename, dest_folder in models:
         continue
 
     os.makedirs(os.path.join(base, dest_folder), exist_ok=True)
-    print(f"  → {save_name}")
+    print(f"  → Downloading: {save_name}")
     path = hf_hub_download(
         repo_id=mirror,
         filename=filename,
         token=token,
-        local_dir=f"/tmp/hf_dl",
+        local_dir="/tmp/hf_dl",
         local_dir_use_symlinks=False
     )
     shutil.move(path, dest)
@@ -90,7 +79,6 @@ jupyter lab \
     > /workspace/jupyter.log 2>&1 &
 
 # ── Launch ComfyUI ───────────────────────────────────────────────
-echo ""
 echo "  → Launching ComfyUI on port 8188..."
 echo ""
 exec $VENV_PYTHON "$COMFYUI_DIR/main.py" \
