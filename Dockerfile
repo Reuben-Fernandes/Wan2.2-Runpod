@@ -27,6 +27,9 @@ RUN python3 -m venv .venv && \
     .venv/bin/pip install --upgrade pip --quiet && \
     .venv/bin/pip install -r requirements.txt --quiet
 
+# ── Pin PyTorch to 2.6.0 (smaller memory footprint, avoids OOM) ──
+RUN .venv/bin/pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cu128 --quiet
+
 # ── Python Dependencies ──────────────────────────────────────────
 RUN .venv/bin/pip install \
     "huggingface_hub[cli]" \
