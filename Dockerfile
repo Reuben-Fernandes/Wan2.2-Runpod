@@ -53,6 +53,7 @@ RUN .venv/bin/pip install \
 
 # ── Ports ────────────────────────────────────────────────────────
 EXPOSE 8188
+EXPOSE 8888
 
 # ── Start Script ─────────────────────────────────────────────────
 COPY start.sh /start.sh
