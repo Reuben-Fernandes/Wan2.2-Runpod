@@ -27,9 +27,6 @@ RUN python3 -m venv .venv && \
     .venv/bin/pip install --upgrade pip --quiet && \
     .venv/bin/pip install -r requirements.txt --quiet
 
-# ── Pin PyTorch to 2.6.0 (smaller memory footprint, avoids OOM) ──
-RUN .venv/bin/pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cu124 --quiet
-
 # ── Python Dependencies ──────────────────────────────────────────
 RUN .venv/bin/pip install \
     "huggingface_hub[cli]" \
@@ -53,9 +50,10 @@ RUN for dir in /workspace/ComfyUI/custom_nodes/*/; do \
         fi \
     done
 
-# ── SageAttention ────────────────────────────────────────────────
-# ── SageAttention (SM89/Ada compiled wheel) ──────────────────────
-RUN .venv/bin/pip install https://huggingface.co/ReubenF10/ComfyUI-Models/resolve/main/wheels/sageattention-2.2.0-sm89-cp312-cp312-linux_x86_64.whl --quiet
+# ── SageAttention (SM89/Ada - compiled on RTX 4090) ──────────────
+RUN .venv/bin/pip install \
+    https://huggingface.co/ReubenF10/ComfyUI-Models/resolve/main/wheels/sageattention-2.2.0-sm89-cp312-cp312-linux_x86_64.whl \
+    --quiet
 
 # ── Ports ────────────────────────────────────────────────────────
 EXPOSE 8188
