@@ -51,7 +51,7 @@ RUN for dir in /workspace/ComfyUI/custom_nodes/*/; do \
     done
 
 # ── SageAttention ────────────────────────────────────────────────
-RUN .venv/bin/pip install sageattention==2.2.0 --no-build-isolation
+RUN .venv/bin/pip install https://huggingface.co/Kijai/PrecompiledWheels/resolve/main/sageattention-2.2.0-cp312-cp312-linux_x86_64.whl --quiet
 
 # ── Ports ────────────────────────────────────────────────────────
 EXPOSE 8188
