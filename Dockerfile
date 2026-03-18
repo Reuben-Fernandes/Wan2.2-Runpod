@@ -46,10 +46,12 @@ RUN for dir in /workspace/ComfyUI/custom_nodes/*/; do \
         fi \
     done
 
-# ── SageAttention ────────────────────────────────────────────────
-RUN .venv/bin/pip install \
-    https://huggingface.co/Kijai/PrecompiledWheels/resolve/main/sageattention-2.2.0-cp312-cp312-linux_x86_64.whl \
-    --quiet
+# ── SageAttention (built from source to match installed PyTorch) ─
+RUN .venv/bin/pip install packaging ninja --quiet && \
+    git clone https://github.com/thu-ml/SageAttention.git /tmp/SageAttention && \
+    cd /tmp/SageAttention && \
+    /workspace/ComfyUI/.venv/bin/pip install . --no-build-isolation --quiet && \
+    rm -rf /tmp/SageAttention
 
 # ── Ports ────────────────────────────────────────────────────────
 EXPOSE 8188
