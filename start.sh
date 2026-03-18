@@ -79,8 +79,6 @@ jupyter lab \
     > /workspace/jupyter.log 2>&1 &
 
 # ── Launch ComfyUI ───────────────────────────────────────────────
-
-# ── Launch ComfyUI ───────────────────────────────────────────────
 echo "  → Launching ComfyUI on port 8188..."
 echo ""
 exec $VENV_PYTHON "$COMFYUI_DIR/main.py" \
