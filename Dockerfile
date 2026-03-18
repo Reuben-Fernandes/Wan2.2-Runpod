@@ -52,7 +52,7 @@ RUN for dir in /workspace/ComfyUI/custom_nodes/*/; do \
 
 # ── SageAttention (SM89/Ada - compiled on RTX 4090) ──────────────
 RUN .venv/bin/pip install \
-    https://huggingface.co/ReubenF10/ComfyUI-Models/resolve/main/wheels/sageattention-2.2.0-sm89-cp312-cp312-linux_x86_64.whl \
+    https://huggingface.co/ReubenF10/ComfyUI-Models/resolve/main/wheels/sageattention-2.2.0-sm89-cp312-cp312-linux_x86_64.whl
 
 # ── Ports ────────────────────────────────────────────────────────
 EXPOSE 8188
