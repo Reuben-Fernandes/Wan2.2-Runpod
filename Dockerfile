@@ -51,7 +51,8 @@ RUN for dir in /workspace/ComfyUI/custom_nodes/*/; do \
     done
 
 # ── SageAttention ────────────────────────────────────────────────
-RUN .venv/bin/pip install sageattention==2.2.0
+# ── SageAttention (built from source, pinned to v2.2.0) ──────────
+RUN .venv/bin/pip install git+https://github.com/thu-ml/SageAttention.git@v2.2.0 --no-build-isolation
 
 # ── Ports ────────────────────────────────────────────────────────
 EXPOSE 8188
