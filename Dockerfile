@@ -42,7 +42,8 @@ RUN cd /workspace/ComfyUI/custom_nodes && \
     git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite && \
     git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation --recursive && \
     git clone https://github.com/kijai/ComfyUI-WanVideoWrapper && \
-    git clone https://github.com/kijai/ComfyUI-KJNodes
+    git clone https://github.com/kijai/ComfyUI-KJNodes && \
+    git clone https://github.com/princepainter/ComfyUI-PainterI2VforKJ
 
 RUN for dir in /workspace/ComfyUI/custom_nodes/*/; do \
         if [ -f "$dir/requirements.txt" ]; then \
@@ -51,7 +52,9 @@ RUN for dir in /workspace/ComfyUI/custom_nodes/*/; do \
     done
 
 # ── SageAttention (SM89/Ada - compiled on RTX 4090) ──────────────
-RUN .venv/bin/pip install https://huggingface.co/ReubenF10/ComfyUI-Models/resolve/main/wheels/sageattention-2.2.0-cp312-cp312-linux_x86_64.whl
+RUN .venv/bin/pip install \
+    https://huggingface.co/ReubenF10/ComfyUI-Models/resolve/main/wheels/sageattention-2.2.0-sm89-cp312-cp312-linux_x86_64.whl \
+    --quiet
 
 # ── Ports ────────────────────────────────────────────────────────
 EXPOSE 8188
