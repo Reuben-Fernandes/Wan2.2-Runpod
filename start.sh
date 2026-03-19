@@ -39,7 +39,9 @@ models = [
     ("unet/Wan2.2-I2V-A14B-HighNoise-Q4_K_S.gguf",                           "unet"),
     ("unet/Wan2.2-I2V-A14B-LowNoise-Q4_0.gguf",                              "unet"),
     ("vae/Wan2.1_VAE.safetensors",                                            "vae"),
-    ("loras/Wan21_I2V_14B_lightx2v_cfg_step_distill_lora_rank64.safetensors", "loras"),
+    ("loras/Wan21_I2V_14B_lightx2v_cfg_step_distill_lora_rank64.safetensors",                  "loras"),
+    ("loras/wan2.2_i2v_A14b_high_noise_lora_rank64_lightx2v_4step_1022.safetensors",         "loras"),
+    ("loras/wan2.2_i2v_A14b_low_noise_lora_rank64_lightx2v_4step_1022.safetensors",          "loras"),
     ("text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",                 "text_encoders"),
 ]
 
@@ -77,6 +79,8 @@ jupyter lab \
     --NotebookApp.token='' \
     --NotebookApp.password='' \
     > /workspace/jupyter.log 2>&1 &
+
+# ── Launch ComfyUI ───────────────────────────────────────────────
 
 # ── Launch ComfyUI ───────────────────────────────────────────────
 echo "  → Launching ComfyUI on port 8188..."
