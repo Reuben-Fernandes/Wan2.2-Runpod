@@ -43,6 +43,7 @@ RUN cd /workspace/ComfyUI/custom_nodes && \
     git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation --recursive && \
     git clone https://github.com/kijai/ComfyUI-WanVideoWrapper && \
     git clone https://github.com/kijai/ComfyUI-KJNodes && \
+    git clone https://github.com/princepainter/ComfyUI-PainterI2V && \
     git clone https://github.com/princepainter/ComfyUI-PainterI2VforKJ
 
 RUN for dir in /workspace/ComfyUI/custom_nodes/*/; do \
